@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <map>
+#include <unordered_set>
 #include "gtest/gtest.h"
 
 class Person{
@@ -27,6 +29,18 @@ public:
   void setAddress(std::string ad){address = ad;}
 
 };
+
+class Student : public Person{
+private: // since no inheritance, just put attributes private(?)
+  std::string studentID; // assuming its alphanumeric, not just numeric
+  std::string major;
+  float gpa;
+  std::map<std::string, char> grades; // whaaaat? you need a storage for grades to calculate GPA
+  // it's [course], [letter grade]. following columbia's registrar, we'll need credits
+  // so the str will be replaced with the Course class
+  std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
+};
+
 
 TEST(PersonTest, Getters){
   Person test("John Doe", 21, "1 Main St.");
