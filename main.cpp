@@ -35,6 +35,16 @@ TEST(PersonTest, Getters){
   EXPECT_EQ(test.getAddress(), "1 Main St.");
 }
 
+TEST(PersonTest, Setters){
+   Person test("John Doe", 21, "1 Main St.");
+   test.setName("Taro Yamada"); // japanese john doe equiv
+   test.setAge(20);
+   test.setAddress("N/A"); // residency program?
+   EXPECT_EQ(test.getName(), "Taro Yamada");
+   EXPECT_EQ(test.getAge(), 20);
+   EXPECT_EQ(test.getAddress(), "N/A");
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
