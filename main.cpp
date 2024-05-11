@@ -28,7 +28,14 @@ public:
 
 };
 
-int main(){
-  std::cout << "I am alive (not really)" << '\n'; // make this cooler, like, a bios boot screen
-  return 0; 
+TEST(PersonTest, Getters){
+  Person test("John Doe", 21, "1 Main St.");
+  EXPECT_EQ(test.getName(), "John Doe");
+  EXPECT_EQ(test.getAge(), 21);
+  EXPECT_EQ(test.getAddress(), "1 Main St.");
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
