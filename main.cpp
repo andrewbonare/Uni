@@ -35,7 +35,7 @@ private: // since no inheritance, just put attributes private(?)
   // so the str will be replaced with the Course class
   std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
 public:
-  Student(std::string id, std::string maj, std::unordered_set<std::string> c){
+  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person(std::string n, int a, std::string ad){
     studentID = id;
     major = maj;
     courses = c;
@@ -46,14 +46,13 @@ public:
   std::map<std::string, char> getGrades(){return grades;}
   std::unordered_set<std::string> getCourses(){return courses;}
 
-  std::string setStudentID(std::string s){studentID = s;}
-  std::string setMajor(std::string m){major = m;}
-  float setGpa(float g){gpa = g;}
-  std::map<std::string, char> setGrades(std::map<std::string, char> g){grades = g;}
-  std::unordered_set<std::string> setCourses(std::unordered_set<std::string> c){courses = c;}
+  void setStudentID(std::string s){studentID = s;}
+  void setMajor(std::string m){major = m;}
+  void setGpa(float g){gpa = g;}
+  void setGrades(std::map<std::string, char> g){grades = g;}
+  void setCourses(std::unordered_set<std::string> c){courses = c;}
 
-  
-};
+ };
 
 
 TEST(PersonTest, Getters){
