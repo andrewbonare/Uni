@@ -35,7 +35,7 @@ private: // since no inheritance, just put attributes private(?)
   // so the str will be replaced with the Course class
   std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
 public:
-  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person(std::string n, int a, std::string ad){
+  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person("unnamed", 0, "N/A"){
     studentID = id;
     major = maj;
     courses = c;
