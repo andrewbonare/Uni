@@ -15,11 +15,6 @@ public:
     age = a;
     address = ad;
   }
-  // Getters and setters, something I just learned about.
-  // I assume that this would have S O M E administrative use (name changes, error correction)
-  // but boy is it going to be tedious
-  // but encapsulation yaaaaay
-
   std::string getName(){return name;}
   int getAge(){return age;}
   std::string getAddress(){return address;}
@@ -39,6 +34,25 @@ private: // since no inheritance, just put attributes private(?)
   // it's [course], [letter grade]. following columbia's registrar, we'll need credits
   // so the str will be replaced with the Course class
   std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
+public:
+  Student(std::string id, std::string maj, std::unordered_set<std::string> c){
+    studentID = id;
+    major = maj;
+    courses = c;
+  }
+  std::string getStudentID(){return studentID;}
+  std::string getMajor(){return major;}
+  float getGpa(){return gpa;}
+  std::map<std::string, char> getGrades(){return grades;}
+  std::unordered_set<std::string> getCourses(){return courses;}
+
+  std::string setStudentID(std::string s){studentID = s;}
+  std::string setMajor(std::string m){major = m;}
+  float setGpa(float g){gpa = g;}
+  std::map<std::string, char> setGrades(std::map<std::string, char> g){grades = g;}
+  std::unordered_set<std::string> setCourses(std::unordered_set<std::string> c){courses = c;}
+
+  
 };
 
 
