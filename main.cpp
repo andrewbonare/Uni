@@ -35,7 +35,7 @@ private: // since no inheritance, just put attributes private(?)
   // so the str will be replaced with the Course class
   std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
 public:
-  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person("unnamed", 0, "N/A"){
+  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person("unnamed", 0, "N/A"){ // this means that students will need to have name,age,address set outside of constructor or i will have to fnagle a solution
     studentID = id;
     major = maj;
     courses = c;
@@ -54,6 +54,32 @@ public:
 
  };
 
+class Professor : public Person{
+private:
+  std::string employeeID; // again, assume alphanumeric
+  std::string department; // replace with class once Department made
+  std::unordered_set<std::string> coursesTaught; // replace w/ Course
+public:
+  Professor(std::string id, std::string dept, std::unordered_set<std::string> c, std::string n, int a, std::string addr) : Person("unnamed", 0, "N/A"){
+    employeeID = id;
+    department = dept;
+    coursesTaught = c;
+    self.setName(n); // experimental
+    self.setAge(a);
+    self.setAddress(addr);
+  }
+  std::string getEmployeeID(){return employeeID;}
+  std::string getDepartment(){return department;}
+  std::unordered_set<std::string> getCoursesTaught(){return coursesTaught;}
+
+  void setEmployeeID(std::string id){employeeID = id;}
+  void setDepartment(std::string d){department = d;}
+  void setCoursesTaught(std::unordered_set<std::string> c){coursesTaught = c}
+  
+  
+};
+
+
 
 TEST(PersonTest, Getters){
   Person test("John Doe", 21, "1 Main St.");
@@ -64,12 +90,19 @@ TEST(PersonTest, Getters){
 
 TEST(PersonTest, Setters){
    Person test("John Doe", 21, "1 Main St.");
-   test.setName("Taro Yamada"); // japanese john doe equiv
+   test.setName("Taro Yamada"); // japanese john doe equivalent!
    test.setAge(20);
    test.setAddress("N/A"); // residency program?
    EXPECT_EQ(test.getName(), "Taro Yamada");
    EXPECT_EQ(test.getAge(), 20);
    EXPECT_EQ(test.getAddress(), "N/A");
+}
+
+TEST(StudentTest, Getters){
+  Student test("1A2B3C4D", "Testology", {"Tests 101", "Intro to Stuffometry"}); // testing inputting unordered_set
+  EXPECT_EQ(test.getStudentID(), "1A2B3C4D");
+  
+   // incomplete
 }
 
 int main(int argc, char **argv) {
