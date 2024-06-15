@@ -129,8 +129,9 @@ TEST(PersonTest, Setters){
 TEST(StudentTest, Getters){
   Student test("1A2B3C4D", "Testology", {"Tests 101", "Intro to Stuffometry"}); // testing inputting unordered_set
   EXPECT_EQ(test.getStudentID(), "1A2B3C4D");
-  EXPECT_EO(test.getMajor())
-   // incomplete
+  EXPECT_EO(test.getMajor(), "Testology");
+  EXPECT_EQ(test.getCourses(), {"Tests 101", "Intro to Stuffometry"});
+  // not sure how to write an unordered set like that
 }
 
 
