@@ -129,7 +129,7 @@ TEST(PersonTest, Setters){
 TEST(StudentTest, Getters){
   Student test("1A2B3C4D", "Testology", {"Tests 101", "Intro to Stuffometry"}); // testing inputting unordered_set
   EXPECT_EQ(test.getStudentID(), "1A2B3C4D");
-  
+  EXPECT_EO(test.getMajor())
    // incomplete
 }
 
