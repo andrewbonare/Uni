@@ -55,7 +55,7 @@ public:
   void checkGrades(){
     std::map<std::string, std::string>::iterator it;
     for(it = grades.begin(); it != grades.end(); ++it){
-      std::cout << it->first << ", " << it->second << endl;
+      std::cout << it->first << ", " << it->second << std::endl;
       // this all assumes we want it written to stdout
 
     }
@@ -74,14 +74,14 @@ public:
     employeeID = id;
     department = dept;
     coursesTaught = c;
-    self.setName(n); // experimental
-    self.setAge(a);
-    self.setAddress(addr);
+    this->setName(n); // experimental
+    this->setAge(a);
+    this->setAddress(addr);
   }
   std::string getEmployeeID(){return employeeID;}
   std::string getDepartment(){return department;}
   std::unordered_set<std::string> getCoursesTaught(){return coursesTaught;}
-  std::map<std::string, std::string> getCourseMaterials{return courseMaterials;}
+  std::map<std::string, std::string> getCourseMaterials(){return courseMaterials;}
   
   void setEmployeeID(std::string id){employeeID = id;}
   void setDepartment(std::string d){department = d;}
@@ -94,13 +94,14 @@ public:
   }
 
   int addGrade(Student student, std::string course, std::string grade) {
-    if(coursesTaught.find(courses) == coursesTaught.end()){
+    if(coursesTaught.find(course) == coursesTaught.end()){
       std::cout << "ERROR: You do not teach this course, and cannot assign grades for it!" << std::endl;
       return 1;
     }
 
-    std::map<std::string, std::string> temp = student.getGrades;
-    student.setGrades(temp[course] = grade); // tis clunky because i'm pretty sure you cant access grades directly bc private
+    std::map<std::string, std::string> temp = student.getGrades();
+    temp[course] = grade;
+    student.setGrades(temp); // tis clunky because i'm pretty sure you cant access grades directly bc private
 
     return 0;
   } 
@@ -127,10 +128,24 @@ TEST(PersonTest, Setters){
 }
 
 TEST(StudentTest, Getters){
-  Student test("1A2B3C4D", "Testology", {"Tests 101", "Intro to Stuffometry"}); // testing inputting unordered_set
+  std::unordered_set<std::string> courses = {"Tests 101", "Intro to Stuffometry"};
+  Student test("1A2B3C4D", "Testology", courses); // testing inputting unordered_set
   EXPECT_EQ(test.getStudentID(), "1A2B3C4D");
-  EXPECT_EO(test.getMajor())
-   // incomplete
+  EXPECT_EQ(test.getMajor(), "Testology");
+  EXPECT_EQ(test.getCourses(), courses);
+  // not sure how to write an unordered set like that
+}
+
+TEST(StudentTest, Setters){
+  std::unordered_set<std::string> courses = {"Tests 101", "Intro to Stuffometry"};
+  Student test("1A2B3C4D", "Testology", courses); // testing inputting unordered_set
+  test.setStudentID("223EEEE");
+  EXPECT_EQ(test.getStudentID(), "223EEEE");
+  test.setMajor("Not Testology(tm)");
+  EXPECT_EQ(test.getMajor(), "Not Testology(tm)");
+  std::unordered_set<std::string> cours = {"Physics 201", "Calculus 101"};
+  test.setCourses(cours);
+  EXPECT_EQ(test.getCourses(), cours);
 }
 
 
