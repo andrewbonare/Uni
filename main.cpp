@@ -136,6 +136,18 @@ TEST(StudentTest, Getters){
   // not sure how to write an unordered set like that
 }
 
+TEST(StudentTest, Setters){
+  std::unordered_set<std::string> courses = {"Tests 101", "Intro to Stuffometry"};
+  Student test("1A2B3C4D", "Testology", courses); // testing inputting unordered_set
+  test.setStudentID("223EEEE");
+  EXPECT_EQ(test.getStudentID(), "223EEEE");
+  test.setMajor("Not Testology(tm)");
+  EXPECT_EQ(test.getMajor(), "Not Testology(tm)");
+  std::unordered_set<std::string> cours = {"Physics 201", "Calculus 101"};
+  test.setCourses(cours);
+  EXPECT_EQ(test.getCourses(), cours);
+}
+
 
 
 int main(int argc, char **argv) {
