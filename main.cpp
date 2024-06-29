@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <unordered_set>
+#include <set>
 #include "gtest/gtest.h"
 
 class Person{
@@ -39,6 +40,8 @@ public:
     studentID = id;
     major = maj;
     courses = c;
+    gpa = 0.0;
+    grades["N/A"] = "N/A";
   }
   std::string getStudentID(){return studentID;}
   std::string getMajor(){return major;}
@@ -49,7 +52,7 @@ public:
   void setStudentID(std::string s){studentID = s;}
   void setMajor(std::string m){major = m;}
   void setGpa(float g){gpa = g;}
-  void setGrades(std::map<std::string, std::string> g){grades = g;}
+  void setGrades(std::map <std::string, std::string> g){grades = g;}
   void setCourses(std::unordered_set<std::string> c){courses = c;}
 
   void checkGrades(){
@@ -108,6 +111,23 @@ public:
   
 };
 
+class Course{
+private:
+  std::string courseCode;
+  std::string title;
+  Professor professor;
+  std::set studentList; // sets are ordered and have no dupes, good for students
+public:
+  std::string getCourseCode(){return courseCode;}
+  std::string getTitle(){return title;}
+  Professor getProfessor(){return professor;}
+  std::set getStudentList(){return studentList;}
+
+  void setCourseCode(std::string c){courseCode = c;}
+  void setTitle(std::string t){title = t;}
+  void setProfessor(Professor p){professor = p;}
+  void setStudentList(std::set s){studentList = s;}
+};y
 
 
 TEST(PersonTest, Getters){
@@ -129,11 +149,13 @@ TEST(PersonTest, Setters){
 
 TEST(StudentTest, Getters){
   std::unordered_set<std::string> courses = {"Tests 101", "Intro to Stuffometry"};
-  Student test("1A2B3C4D", "Testology", courses); // testing inputting unordered_set
+  Student test("1A2B3C4D", "Testology", courses); 
   EXPECT_EQ(test.getStudentID(), "1A2B3C4D");
   EXPECT_EQ(test.getMajor(), "Testology");
   EXPECT_EQ(test.getCourses(), courses);
-  // not sure how to write an unordered set like that
+  EXPECT_EQ(test.getGpa(), 0.0);
+  EXPECT_EQ(test.getGrades()["N/A"],"N/A");
+	    //where grades["N/A"] = "N/A";
 }
 
 TEST(StudentTest, Setters){
@@ -146,7 +168,14 @@ TEST(StudentTest, Setters){
   std::unordered_set<std::string> cours = {"Physics 201", "Calculus 101"};
   test.setCourses(cours);
   EXPECT_EQ(test.getCourses(), cours);
+  test.setGpa(4.0);
+  EXPECT_EQ(test.getGpa(), 4.0);
+  std::map <std::string, std::string> grades;
+  grades["Physics 201"] = "A+";
+  test.setGrades(grades);
+  EXPECT_EQ(test.getGrades(), grades);
 }
+
 
 
 
