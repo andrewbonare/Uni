@@ -31,12 +31,11 @@ private: // since no inheritance, just put attributes private(?)
   std::string studentID; // assuming its alphanumeric, not just numeric
   std::string major;
   float gpa;
-  std::map<std::string, std::string> grades; // whaaaat? you need a storage for grades to calculate GPA
+  std::map<Course, std::string> grades; // whaaaat? you need a storage for grades to calculate GPA
   // it's [course], [letter grade]. following columbia's registrar, we'll need credits
-  // so the str will be replaced with the Course class
-  std::unordered_set<std::string> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets. also replace str with Course
+  std::unordered_set<Course> courses; //using a set is easier than searching through a array or vector to drop a course, and unordered sets are speedier than ordinary sets.
 public:
-  Student(std::string id, std::string maj, std::unordered_set<std::string> c) : Person("unnamed", 0, "N/A"){ // this means that students will need to have name,age,address set outside of constructor or i will have to fnagle a solution
+  Student(std::string id, std::string maj, std::unordered_set<Course> c) : Person("unnamed", 0, "N/A"){ // this means that students will need to have name,age,address set outside of constructor or i will have to fnagle a solution
     studentID = id;
     major = maj;
     courses = c;
@@ -46,17 +45,17 @@ public:
   std::string getStudentID(){return studentID;}
   std::string getMajor(){return major;}
   float getGpa(){return gpa;}
-  std::map<std::string, std::string> getGrades(){return grades;}
-  std::unordered_set<std::string> getCourses(){return courses;}
+  std::map<Course, std::string> getGrades(){return grades;}
+  std::unordered_set<Course> getCourses(){return courses;}
 
   void setStudentID(std::string s){studentID = s;}
   void setMajor(std::string m){major = m;}
   void setGpa(float g){gpa = g;}
-  void setGrades(std::map <std::string, std::string> g){grades = g;}
-  void setCourses(std::unordered_set<std::string> c){courses = c;}
+  void setGrades(std::map <Course, std::string> g){grades = g;}
+  void setCourses(std::unordered_set<Course> c){courses = c;}
 
   void checkGrades(){
-    std::map<std::string, std::string>::iterator it;
+    std::map<Course, std::string>::iterator it;
     for(it = grades.begin(); it != grades.end(); ++it){
       std::cout << it->first << ", " << it->second << std::endl;
       // this all assumes we want it written to stdout
@@ -70,10 +69,10 @@ class Professor : public Person{
 private:
   std::string employeeID; // again, assume alphanumeric
   std::string department; // replace with class once Department made
-  std::unordered_set<std::string> coursesTaught; // replace w/ Course
-  std::map<std::string, std::string> courseMaterials;
+  std::unordered_set<Course> coursesTaught; 
+  std::map<Course, std::string> courseMaterials;
 public:
-  Professor(std::string id, std::string dept, std::unordered_set<std::string> c, std::string n, int a, std::string addr) : Person("unnamed", 0, "N/A"){
+  Professor(std::string id, std::string dept, std::unordered_set<Course> c, std::string n, int a, std::string addr) : Person("unnamed", 0, "N/A"){
     employeeID = id;
     department = dept;
     coursesTaught = c;
@@ -83,26 +82,26 @@ public:
   }
   std::string getEmployeeID(){return employeeID;}
   std::string getDepartment(){return department;}
-  std::unordered_set<std::string> getCoursesTaught(){return coursesTaught;}
-  std::map<std::string, std::string> getCourseMaterials(){return courseMaterials;}
+  std::unordered_set<Course> getCoursesTaught(){return coursesTaught;}
+  std::map<Course, std::string> getCourseMaterials(){return courseMaterials;}
   
   void setEmployeeID(std::string id){employeeID = id;}
   void setDepartment(std::string d){department = d;}
-  void setCoursesTaught(std::unordered_set<std::string> c){coursesTaught = c;}
-  void setCourseMaterials(std::map<std::string, std::string> m){courseMaterials = m;}
+  void setCoursesTaught(std::unordered_set<Course> c){coursesTaught = c;}
+  void setCourseMaterials(std::map<Course, std::string> m){courseMaterials = m;}
 
   // does not append!!! maybe i'll add modes to this tho
-  void updateCourseMaterials(std::string course, std::string material){ // set course type to course
+  void updateCourseMaterials(Course course, std::string material){ // set course type to course
     courseMaterials[course] = material;
   }
 
-  int addGrade(Student student, std::string course, std::string grade) {
+  int addGrade(Student student, Course course, std::string grade) {
     if(coursesTaught.find(course) == coursesTaught.end()){
       std::cout << "ERROR: You do not teach this course, and cannot assign grades for it!" << std::endl;
       return 1;
     }
 
-    std::map<std::string, std::string> temp = student.getGrades();
+    std::map<Course, std::string> temp = student.getGrades();
     temp[course] = grade;
     student.setGrades(temp); // tis clunky because i'm pretty sure you cant access grades directly bc private
 
@@ -116,18 +115,26 @@ private:
   std::string courseCode;
   std::string title;
   Professor professor;
-  std::set studentList; // sets are ordered and have no dupes, good for students
+  std::set<Student> studentList; // sets are ordered and have no dupes, good for students
 public:
+  Course(std::string cc, std::string t, Professor p, std::set<Student> sl){
+    courseCode = cc;
+    title = t;
+    professor = p;
+    studentList = sl;
+  }
   std::string getCourseCode(){return courseCode;}
   std::string getTitle(){return title;}
   Professor getProfessor(){return professor;}
-  std::set getStudentList(){return studentList;}
+  std::set<Student> getStudentList(){return studentList;}
 
   void setCourseCode(std::string c){courseCode = c;}
   void setTitle(std::string t){title = t;}
   void setProfessor(Professor p){professor = p;}
   void setStudentList(std::set s){studentList = s;}
-};y
+
+  
+};
 
 
 TEST(PersonTest, Getters){
