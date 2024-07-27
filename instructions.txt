@@ -1,0 +1,51 @@
+ 
+ Person Class (Base Class):
+Attributes: Name, Age, Address.
+Methods: Constructor, getters, sette
+
+
+
+
+Student Class (Inherits from Person):
+Attributes: Student ID, Major, GPA.
+Methods: Enroll in courses, drop courses, check grades.
+
+
+
+
+Professor Class (Inherits from Person):
+Attributes: Employee ID, Department, List of courses taught.
+Methods: Add grades to students, update course materials.
+Course Class:
+Attributes: Course code, Title, Professor (instance of Professor class), List of enrolled students.
+Methods: Add/remove students, calculate average grades.
+Department Class:
+Attributes: Department
+Department Class:
+Attributes: Department name, List of professors, List of courses offered.
+Methods: Add/remove professors, add/remove courses.
+University Class:
+Attributes: List of departments, List of students, List of professors.
+Methods: Enroll new students, hire new professors.
+TESTING
+Test Student Enrollment:
+Test enrolling a student in a course and verify that the student is added to the list of enrolled students for that course.
+Test enrolling a student in multiple courses and verify that the student is correctly enrolled in all courses.
+Test Professor Assigning Grades:
+Test a professor assigning grades to a student for a course and verify that the grade is correctly recorded for that student in the course.
+Test assigning grades to multiple students for a course and verify that all grades are recorded accurately.
+est Course Average Grade Calculation:
+Test calculating the average grade for a course with multiple enrolled students and verify that the average grade is computed correctly.
+Test Department Adding/Removing Professors:
+Test adding a professor to a department and verify that the professor is added to the list of professors in the department.
+Test removing a professor from a department and verify that the professor is removed from the list of professors in the department.
+Robert Slick
+11:01 AM
+Test University Enrolling Students:
+Test enrolling a new student in the university and verify that the student is added to the list of students.
+Test enrolling multiple students and verify that all students are correctly added to the list of students.
+Test Student Dropping Courses:
+Test a student dropping a course and verify that the student is removed from the list of enrolled students for that course.
+Test dropping a course when the student is enrolled in multiple courses and verify that the student is correctly removed from the appropriate course.
+Test Professor Updating Course Materials:
+Test a professor updating course materials for a course and verify that the materials are correctly updated.
